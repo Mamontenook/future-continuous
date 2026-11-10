@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Future Continuous — практика</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#fafaf8;--fg:#18181b;--mut:#71717a;--line:#e6e4de;--card:#fff;--ok:#15803d;--okb:#ecfdf3;--no:#c2410c;--nob:#fff4ee;--ac:#18181b;--acf:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--fg:#f4f4f5;--mut:#a1a1aa;--line:#2c2c31;--card:#1a1a1d;--ok:#4ade80;--okb:#10291a;--no:#fb923c;--nob:#2e1a0f;--ac:#f4f4f5;--acf:#121214;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121214;--fg:#f4f4f5;--mut:#a1a1aa;--line:#2c2c31;--card:#1a1a1d;--ok:#4ade80;--okb:#10291a;--no:#fb923c;--nob:#2e1a0f;--ac:#f4f4f5;--acf:#121214;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.w{max-width:560px;margin:0 auto;padding:20px 20px 64px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;font-size:14px}
+.logo{font-weight:600;letter-spacing:-.01em}
+nav{display:flex;gap:4px}
+nav button{background:none;border:0;color:var(--mut);font:inherit;padding:6px 10px;border-radius:8px;cursor:pointer}
+nav button.on{color:var(--fg);background:var(--line)}
+h1{font-size:34px;line-height:1.15;letter-spacing:-.03em;margin:0 0 10px}
+.sub{color:var(--mut);margin:0 0 28px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
+input[type=text]{width:100%;font:inherit;font-size:17px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);outline:none}
+input[type=text]:focus{border-color:var(--fg)}
+.btn{font:inherit;font-weight:600;background:var(--ac);color:var(--acf);border:0;border-radius:12px;padding:13px 22px;cursor:pointer}
+.btn.ghost{background:none;color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.note{font-size:13px;color:var(--mut);margin-top:14px}
+.err{font-size:13px;color:var(--no);margin-top:8px;min-height:18px}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:10px}
+.bar{height:3px;background:var(--line);border-radius:3px;margin-bottom:28px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--fg);transition:width .3s}
+.hook{font-size:14px;color:var(--mut);border-left:2px solid var(--fg);padding:2px 0 2px 12px;margin:0 0 22px}
+.q{font-size:24px;line-height:1.35;letter-spacing:-.02em;margin:0 0 8px;font-weight:600}
+.blank{display:inline-block;width:64px;border-bottom:2px solid var(--fg);margin:0 4px;transform:translateY(-3px)}
+.v{font-size:14px;color:var(--mut);margin-bottom:20px}
+.opts{display:grid;gap:10px;margin-top:20px}
+.opt{font:inherit;text-align:left;padding:14px 16px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--fg)}
+.opt.good{border-color:var(--ok);background:var(--okb)}
+.opt.bad{border-color:var(--no);background:var(--nob)}
+.line{min-height:56px;border-bottom:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 0;margin-top:14px}
+.pool{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.chip{font:inherit;padding:9px 14px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;cursor:pointer}
+.line .chip{border-color:var(--fg)}
+.fb{margin-top:22px;padding:16px;border-radius:12px;font-size:15px}
+.fb.ok{background:var(--okb)}.fb.no{background:var(--nob)}
+.fb b{display:block;margin-bottom:4px;color:var(--ok)}.fb.no b{color:var(--no)}
+.fb .tip{margin-top:8px;color:var(--mut)}
+.score{font-size:76px;font-weight:700;letter-spacing:-.05em;line-height:1;margin:6px 0 6px}
+.score small{font-size:28px;color:var(--mut);font-weight:500;letter-spacing:0}
+.bl{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin:24px 0;font-size:14px}
+.bl .t{height:4px;background:var(--line);border-radius:4px;grid-column:1/3;margin-bottom:8px;overflow:hidden}
+.bl .t i{display:block;height:100%;background:var(--fg)}
+.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px 18px;margin-top:18px;font-size:15px}
+.card h3{margin:0 0 8px;font-size:13px;color:var(--mut);font-weight:500}
+.card p{margin:4px 0}
+.miss{padding:10px 0;border-top:1px solid var(--line);font-size:14px}.miss:first-of-type{border:0}
+.cp{display:flex;gap:8px;margin-top:18px}.cp input{flex:1;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-weight:500;color:var(--mut);padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:10px 6px;border-bottom:1px solid var(--line)}
+.sc{font-weight:600;white-space:nowrap}
+.sr{overflow-x:auto}
+input.good{border-color:var(--ok);background:var(--okb)}input.bad{border-color:var(--no);background:var(--nob)}
+button,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.chip{min-height:44px}
+.q,.opt,.v,.hook,.meta,.fb{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.tm{height:3px;background:var(--line);border-radius:3px;margin:-20px 0 22px;overflow:hidden}.tm i{display:block;height:100%;background:var(--no);width:100%;transition:width 1s linear}
+.toast{position:fixed;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 12px);max-width:528px;margin:0 auto;background:var(--no);color:var(--bg);padding:12px 14px;border-radius:12px;font-size:14px;z-index:20}
+@media(max-width:480px){.w{padding:16px 16px 56px}h1{font-size:30px}.q{font-size:21px}.score{font-size:64px}.row .btn{flex:1 1 auto}.opt{padding:15px 16px}}
+</style>
+</head>
+<body>
+<div class="w">
+  <header><span class="logo">Future Continuous</span><nav id="nav"></nav></header>
+  <main id="app"></main>
+</div>
+<script>
+"use strict";
+var TOTAL = 20;
+var BLOCKS = [
+ {t:"Simple или Continuous?", h:"Continuous — процесс в конкретный момент. Simple — решение на ходу, обещание. После when/while — никакого will.", q:[
+  {k:"c", p:"Don’t call me at 7 — we ___ dinner.", o:["will have","will be having","have"], a:1, f:"Don’t call me at 7 — we will be having dinner.", tip:"Конкретный момент и процесс (ужин в разгаре) → will be having."},
+  {k:"c", p:"— The phone is ringing! — I ___ it.", o:["will get","will be getting","will have got"], a:0, f:"— The phone is ringing! — I will get it.", tip:"Решение принято в момент речи → Future Simple."},
+  {k:"c", p:"When you wake up tomorrow, I ___ to Berlin.", o:["will fly","will be flying","flew"], a:1, f:"When you wake up tomorrow, I will be flying to Berlin.", tip:"Действие будет в процессе, когда наступит другой момент → Continuous."},
+  {k:"c", p:"I will be cooking when you ___ home.", o:["will come","come","will be coming","are come"], a:1, f:"I will be cooking when you come home.", tip:"После when в будущем используем Present Simple, а не will."}]},
+ {t:"Правильный вариант", h:"Следи за порядком слов, глаголами состояния и написанием ‑ing.", q:[
+  {k:"c", p:"Какое предложение правильное?", o:["Will you be using the car at 6?","Will be you using the car at 6?","Will you be use the car at 6?","Do you be using the car at 6?"], a:0, f:"Will you be using the car at 6?", tip:"Вопрос: will + подлежащее + be + ‑ing."},
+  {k:"c", p:"This time next week I ___ my exam results.", o:["will be knowing","will know","will be known"], a:1, f:"This time next week I will know my exam results.", tip:"Глаголы состояния (know, want, like, understand) почти не используются в Continuous."},
+  {k:"c", p:"В каком предложении ошибка?", o:["He will be writing a letter at 6.","They will be sitting in traffic at 8.","We will be swiming at 7.","I will be taking an exam at 9."], a:2, f:"We will be swimming at 7.", tip:"Короткий глагол с одной гласной и согласной на конце удваивает её: swim → swimming."},
+  {k:"c", p:"What ___ at 10 tomorrow?", o:["will you be doing","you will be doing","will you doing","will be you doing"], a:0, f:"What will you be doing at 10 tomorrow?", tip:"Вопросительное слово + will + подлежащее + be + ‑ing."}]},
+ {t:"Впиши форму целиком", h:"Без подсказок: пиши will be + ‑ing целиком. Сокращения (’ll, won’t) тоже принимаются.", q:[
+  {k:"t", p:"This time tomorrow I ___ (lie) on a beach.", v:"lie", a:["will be lying"], f:"I will be lying on a beach.", tip:"lie → lying: ie меняется на y."},
+  {k:"t", p:"At 6 tonight we ___ (not / work).", v:"not / work", a:["will not be working"], f:"We won’t be working at 6 tonight.", tip:"Отрицание: won’t be + ‑ing."},
+  {k:"t", p:"He ___ (travel) around Asia in June.", v:"travel", a:["will be traveling","will be travelling"], f:"He will be traveling (брит. travelling) around Asia in June.", tip:"Американский вариант — traveling, британский — travelling. Принимаются оба."},
+  {k:"t", p:"What ___ at 9 tomorrow? (you / do)", v:"you / do", a:["will you be doing"], f:"What will you be doing at 9 tomorrow?", tip:"will + you + be + doing."}]},
+ {t:"Собери предложение", h:"Вопросительное слово — первое, дальше will, подлежащее, be и ‑ing.", q:[
+  {k:"s", w:["What","will","you","be","doing","this","time","tomorrow","?"], ok:["what will you be doing this time tomorrow?"], f:"What will you be doing this time tomorrow?", tip:"What + will + подлежащее + be + ‑ing?"},
+  {k:"s", w:["When","you","arrive","I","will","be","waiting","at","the","station"], ok:["when you arrive i will be waiting at the station","i will be waiting at the station when you arrive"], f:"I will be waiting at the station when you arrive.", tip:"После when — Present Simple (arrive), will только в главной части."},
+  {k:"s", w:["We","won’t","be","using","the","car","on","Sunday"], ok:["we won’t be using the car on sunday","on sunday we won’t be using the car"], f:"We won’t be using the car on Sunday.", tip:"Отрицание: won’t be + ‑ing."},
+  {k:"s", w:["Will","your","parents","be","staying","with","us","next","week","?"], ok:["will your parents be staying with us next week?"], f:"Will your parents be staying with us next week?", tip:"Вопрос: Will + подлежащее + be + ‑ing?"}]},
+ {t:"Финальный квиз", h:"Вспомни всё сразу — здесь придётся подумать.", q:[
+  {k:"c", p:"Почему нельзя сказать: «I will be knowing the answer tomorrow»?", o:["Know — глагол состояния","Нет точного времени","С tomorrow нужен Present Simple","После will нельзя использовать be"], a:0, f:"Know — глагол состояния: I will know the answer tomorrow.", tip:"Глаголы состояния обычно не используются в Continuous."},
+  {k:"c", p:"В каком предложении Future Continuous показывает процесс в момент другого события?", o:["I will call you when I arrive.","I will be sleeping when you arrive.","I will sleep after you arrive.","I will have slept when you arrive."], a:1, f:"I will be sleeping when you arrive.", tip:"Процесс идёт, когда наступает другое событие → will be + ‑ing."},
+  {k:"c", p:"Как сказать «Завтра в это время я буду сдавать экзамен»?", o:["Tomorrow at this time I will be take an exam.","Tomorrow at this time I will be taking an exam.","Tomorrow at this time I will taking an exam.","Tomorrow at this time I am will be taking an exam."], a:1, f:"Tomorrow at this time I will be taking an exam.", tip:"Процесс в точный момент → will be + ‑ing."},
+  {k:"c", p:"В каком предложении нужен Future Simple, а не Continuous?", o:["This time next week I’ll be skiing in Austria.","At 6 I’ll be picking up the kids.","Look, you’re tired. I’ll be making you a coffee.","Don’t call at 9, I’ll be putting my daughter to bed."], a:2, f:"Look, you’re tired. I’ll make you a coffee.", tip:"Предложение помощи на ходу → will + глагол, без be."}]}
+];
+
+var S = {screen:"start", name:"", qs:[], i:0, res:[], mode:"main", status:"", reviewed:false};
+var db = null, uid = null, teacher = false, rows = null, journalSub = false, journalTimeout = false;
+var app = document.getElementById("app"), navEl = document.getElementById("nav");
+
+function h(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+function sh(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function clear(){ app.textContent = ""; }
+function norm(s){ return String(s).toLowerCase().replace(/[’‘`´]/g, "'").replace(/\s+/g, " ").trim().replace(/won't/g, "will not").replace(/'ll/g, " will").replace(/\s+/g, " ").trim(); }
+function ps(text){ var p = h("p", "q"); text.split("___").forEach(function(s, i, a){ p.append(s); if (i < a.length - 1) p.append(h("span", "blank")); }); return p; }
+
+try { S.name = localStorage.getItem("fc_name") || ""; } catch (e) {}
+
+function buildRun(){
+  var qs = [];
+  BLOCKS.forEach(function(b, bi){ sh(b.q.map(function(x, n){ return [x, n]; })).forEach(function(pr){ var q = pr[0], qi = pr[1];
+    var c = Object.assign({}, q, {bi: bi, qi: qi});
+    if (q.k === "c") c.ord = q.fix ? q.o.map(function(_, i){ return i; }) : sh(q.o.map(function(_, i){ return i; }));
+    qs.push(c);
+  }); });
+  S.qs = qs; S.leaves = 0; S.flag = false; S.t0 = Date.now(); S.i = 0; S.res = []; S.mode = "main"; S.reviewed = false; S.status = "";
+}
+
+function renderNav(){
+  navEl.textContent = "";
+  if (!teacher) return;
+  [["Практика", S.screen !== "journal"], ["Журнал", S.screen === "journal"]].forEach(function(x, n){
+    var b = h("button", x[1] ? "on" : "", x[0]);
+    b.onclick = function(){ if (n === 1) openJournal(); else { S.screen = S.res.length ? S.screen : "start"; render(); } };
+    navEl.append(b);
+  });
+}
+
+function render(){
+  document.onkeydown = null; renderNav(); clear();
+  if (S.screen === "start") viewStart();
+  else if (S.screen === "q") viewQ();
+  else if (S.screen === "result") viewResult();
+  else if (S.screen === "journal") viewJournal();
+  window.scrollTo(0, 0);
+}
+
+function viewStart(){
+  app.append(h("h1", "", "Future Continuous"), h("p", "sub", "Средний уровень (B1–B2): 20 вопросов, 5 блоков, 1 балл за каждый. После каждого ответа — разбор ошибки. На вопрос даётся 45–75 секунд, выход со страницы фиксируется и виден преподавателю."));
+  app.append(h("label", "", "Фамилия и имя"));
+  var inp = h("input"); inp.type = "text"; inp.placeholder = "Иванов Иван"; inp.value = S.name; inp.autocomplete = "name"; app.append(inp);
+  var err = h("div", "err"); app.append(err);
+  var go = h("button", "btn", "Начать"); 
+  function start(){
+    var n = inp.value.trim().replace(/\s+/g, " ");
+    if (n.split(" ").length < 2){ err.textContent = "Введи фамилию и имя полностью."; return; }
+    S.name = n; try { localStorage.setItem("fc_name", n); } catch (e) {}
+    buildRun(); S.screen = "q"; render();
+  }
+  go.onclick = start; inp.onkeydown = function(e){ if (e.key === "Enter") start(); };
+  var r = h("div", "row"); r.append(go); app.append(r);
+  app.append(h("div", "note", db && uid ? "Результат автоматически попадёт к преподавателю." : "Результат в конце можно скопировать и отправить в группу."));
+}
+
+function viewQ(){
+  var q = S.qs[S.i], total = S.qs.length, cnt = null, tick = null;
+  var meta = h("div", "meta"); 
+  meta.append(h("span", "", S.mode === "review" ? "Повторение ошибок" : "Блок " + (q.bi + 1) + " · " + BLOCKS[q.bi].t), (cnt = h("span", "", (S.i + 1) + " / " + total)));
+  var bar = h("div", "bar"), fill = h("i"); fill.style.width = (S.i / total * 100) + "%"; bar.append(fill);
+  app.append(meta, bar);
+  if (S.mode === "main" && (S.i === 0 || S.qs[S.i - 1].bi !== q.bi)) app.append(h("p", "hook", BLOCKS[q.bi].h));
+  var done = false, area = h("div");
+  function finish(ok, given){
+    if (done) return; done = true; clearInterval(tick);
+    if (S.mode === "main") S.res.push({ok: ok, bi: q.bi, q: q});
+    var box = h("div", "fb " + (ok ? "ok" : "no"));
+    box.append(h("b", "", ok ? "Верно" : "Не совсем"), h("div", "", (ok ? "" : "Правильно: ") + q.f), h("div", "tip", "Запомни: " + q.tip));
+    var nb = h("button", "btn", S.i + 1 < total ? "Дальше" : (S.mode === "review" ? "Готово" : "Результат"));
+    nb.onclick = next; var r = h("div", "row"); r.append(nb);
+    area.append(box, r); var t0 = Date.now(); nb.onclick = function(){ if (Date.now() - t0 < 600) return; next(); };
+    setTimeout(function(){ nb.focus({preventScroll: true}); box.scrollIntoView({behavior: "smooth", block: "nearest"}); }, 60);
+  }
+  if (q.k === "c"){
+    app.append(ps(q.p));
+    var wrap = h("div", "opts");
+    q.ord.forEach(function(oi){
+      var b = h("button", "opt", q.o[oi]);
+      b.onclick = function(){
+        if (done) return;
+        var ok = oi === q.a;
+        Array.prototype.forEach.call(wrap.children, function(x){ x.disabled = true; });
+        b.classList.add(ok ? "good" : "bad");
+        if (!ok) Array.prototype.forEach.call(wrap.children, function(x){ if (x.textContent === q.o[q.a]) x.classList.add("good"); });
+        finish(ok);
+      };
+      wrap.append(b);
+    });
+    app.append(wrap);
+    document.onkeydown = function(e){ var n = parseInt(e.key, 10); if (!done && n >= 1 && n <= wrap.children.length) wrap.children[n - 1].click(); };
+  } else if (q.k === "t"){
+    app.append(ps(q.p), h("div", "v", "слова: " + q.v));
+    var inp = h("input"); inp.type = "text"; inp.placeholder = "впиши форму целиком"; inp.autocapitalize = "none"; inp.autocomplete = "off"; inp.spellcheck = false; inp.setAttribute("enterkeyhint", "done"); inp.setAttribute("autocorrect", "off"); inp.onpaste = function(e){ e.preventDefault(); };
+    var chk = h("button", "btn", "Проверить"); var r = h("div", "row"); r.append(chk);
+    var go = function(){ if (done || !inp.value.trim()) return; var ok = q.a.map(norm).indexOf(norm(inp.value)) > -1; inp.disabled = true; chk.disabled = true; inp.classList.add(ok ? "good" : "bad"); finish(ok); };
+    chk.onclick = go; inp.onkeydown = function(e){ if (e.key === "Enter"){ e.preventDefault(); go(); } };
+    app.append(inp, r); setTimeout(function(){ inp.focus(); }, 0);
+  } else {
+    app.append(h("p", "q", "Составь предложение"), h("div", "v", "Нажимай на слова по порядку. Время можно ставить в начало или в конец."));
+    var pool = [], tk = q.w.map(function(w, i){ return {w: w, id: i}; });
+    do { pool = sh(tk); } while (pool.map(function(t){ return t.w; }).join() === q.w.join());
+    var line = [], lineEl = h("div", "line"), poolEl = h("div", "pool"), chk = h("button", "btn", "Проверить"), rs = h("button", "btn ghost", "Сначала");
+    var draw = function(){
+      lineEl.textContent = ""; poolEl.textContent = "";
+      line.forEach(function(t, n){ var c = h("button", "chip", t.w); c.onclick = function(){ if (done) return; line.splice(n, 1); pool.push(t); draw(); }; lineEl.append(c); });
+      pool.forEach(function(t, n){ var c = h("button", "chip", t.w); c.onclick = function(){ if (done) return; pool.splice(n, 1); line.push(t); draw(); }; poolEl.append(c); });
+      chk.disabled = pool.length > 0;
+    };
+    chk.onclick = function(){
+      if (done) return; 
+      var s = line.map(function(t){ return t.w; }).join(" ").replace(/ \?$/, "?"); s = norm(s);
+      chk.disabled = true; rs.disabled = true;
+      finish(q.ok.map(norm).indexOf(s) > -1);
+    };
+    rs.onclick = function(){ if (done) return; pool = sh(tk); line = []; draw(); };
+    var r = h("div", "row"); r.append(chk, rs);
+    app.append(lineEl, poolEl, r); draw();
+    document.onkeydown = function(e){ if (e.key === "Enter" && !done && !chk.disabled && document.activeElement.tagName !== "BUTTON"){ e.preventDefault(); chk.onclick(); } };
+  }
+  app.append(area);
+  if (S.mode === "main"){
+    var lim = q.k === "c" ? 45 : 75, left = lim, tm = h("div", "tm"), ti = h("i");
+    tm.append(ti); bar.after(tm);
+    var show = function(){ ti.style.width = (left / lim * 100) + "%"; cnt.textContent = (S.i + 1) + " / " + total + " · " + Math.floor(left / 60) + ":" + (left % 60 < 10 ? "0" : "") + (left % 60); };
+    show();
+    tick = setInterval(function(){
+      if (S.screen !== "q" || done){ clearInterval(tick); return; }
+      left--; show();
+      if (left <= 0){ clearInterval(tick); Array.prototype.forEach.call(app.querySelectorAll(".opt,.chip,.btn,input"), function(x){ x.disabled = true; }); finish(false); }
+    }, 1000);
+  }
+}
+
+function next(){
+  S.i++;
+  if (S.i >= S.qs.length){
+    if (S.mode === "review"){ S.mode = "main"; S.reviewed = true; S.screen = "result"; render(); return; }
+    S.screen = "result"; render(); saveResult(); return;
+  }
+  render();
+}
+
+function stats(){
+  var blocks = BLOCKS.map(function(){ return 0; }), score = 0;
+  S.res.forEach(function(r){ if (r.ok){ blocks[r.bi]++; score++; } });
+  return {score: score, blocks: blocks};
+}
+
+async function saveResult(){
+  var st = stats();
+  if (!db || !uid){ S.status = "local"; updStatus(); return; }
+  try {
+    var ref = db.collection("results_v2").doc(uid), old = null;
+    try { var snap = await ref.get(); if (snap.exists) old = snap.data(); } catch (e) {}
+    var keep = old && old.best > st.score;
+    await ref.set({name: S.name, best: keep ? old.best : st.score, blocks: keep ? old.blocks : st.blocks, leaves: keep ? (old.leaves || 0) : (S.leaves || 0), secs: keep ? (old.secs || 0) : Math.round((Date.now() - S.t0) / 1000), last: st.score, attempts: ((old && old.attempts) || 0) + 1, t: Date.now()});
+    S.status = "saved";
+  } catch (e) { S.status = "local"; }
+  updStatus();
+}
+function updStatus(){
+  var el = document.getElementById("st"); if (!el) return;
+  el.textContent = S.status === "saved" ? "Результат сохранён у преподавателя." : S.status === "local" ? "Автосохранение недоступно: скопируй результат и отправь в группу." : "Сохраняем результат…";
+}
+
+function viewResult(){
+  var st = stats(), sc = st.score;
+  var label = sc >= 18 ? "Отлично" : sc >= 14 ? "Хорошо" : sc >= 10 ? "Неплохо, но стоит повторить" : "Нужно повторить тему";
+  app.append(h("div", "meta", S.name));
+  var big = h("div", "score", String(sc)); big.append(h("small", "", " / " + TOTAL)); app.append(big, h("div", "sub", label));
+  var bl = h("div", "bl");
+  BLOCKS.forEach(function(b, i){ bl.append(h("span", "", b.t), h("span", "", st.blocks[i] + " / 4")); var t = h("div", "t"), f = h("i"); f.style.width = (st.blocks[i] / 4 * 100) + "%"; t.append(f); bl.append(t); });
+  app.append(bl);
+  if (S.leaves) app.append(h("div", "note", "Выходов со страницы: " + S.leaves + " — преподаватель видит это в журнале."));
+  var miss = S.res.filter(function(r){ return !r.ok; });
+  if (miss.length){
+    var c = h("div", "card"); c.append(h("h3", "", "Над чем поработать"));
+    miss.forEach(function(r){ var m = h("div", "miss"); m.append(h("div", "", r.q.f), h("div", "note", r.q.tip)); m.lastChild.style.margin = "2px 0 0"; c.append(m); });
+    app.append(c);
+  }
+  var cs = h("div", "card"); cs.append(h("h3", "", "Шпаргалка на одну карточку"), h("p", "", "+  I will be reading."), h("p", "", "−  I won’t be reading."), h("p", "", "?  Will you be reading?"), h("p", "note", "will + BE + глагол‑ing · play → playing · make → making · run → running"));
+  cs.append(h("p", "note", "После when / while — Present Simple, без will · know, want, like — без Continuous")); app.append(cs);
+  var line = S.name + " — " + sc + "/" + TOTAL + " (Future Continuous)";
+  var cp = h("div", "cp"), ci = h("input"); ci.type = "text"; ci.readOnly = true; ci.value = line;
+  var cb = h("button", "btn ghost", "Скопировать");
+  cb.onclick = function(){ var done = function(){ cb.textContent = "Скопировано"; }; try { navigator.clipboard.writeText(line).then(done, function(){ ci.select(); cb.textContent = "Выдели и скопируй"; }); } catch (e) { ci.select(); cb.textContent = "Выдели и скопируй"; } };
+  cp.append(ci, cb); app.append(cp);
+  var st2 = h("div", "note"); st2.id = "st"; app.append(st2); updStatus();
+  var r = h("div", "row");
+  if (miss.length && !S.reviewed){ var rv = h("button", "btn", "Повторить ошибки"); rv.onclick = function(){ S.qs = sh(miss.map(function(m){ return m.q; })); S.i = 0; S.mode = "review"; S.screen = "q"; render(); }; r.append(rv); }
+  var again = h("button", "btn" + (miss.length && !S.reviewed ? " ghost" : ""), "Пройти заново"); again.onclick = function(){ buildRun(); S.screen = "q"; render(); };
+  r.append(again); app.append(r);
+}
+
+function openJournal(){
+  S.screen = "journal";
+  if (db && !journalSub){
+    journalSub = true;
+    var t = setTimeout(function(){ journalTimeout = true; if (S.screen === "journal") render(); }, 10000);
+    try {
+      db.collection("results_v2").onSnapshot(function(snap){ clearTimeout(t); journalTimeout = false; rows = snap.docs.map(function(d){ return d.data(); }); if (S.screen === "journal") render(); }, function(){ clearTimeout(t); rows = []; if (S.screen === "journal") render(); });
+    } catch (e) { rows = []; }
+  }
+  render();
+}
+
+function viewJournal(){
+  app.append(h("h1", "", "Журнал"));
+  if (!db){ app.append(h("p", "sub", "Хранилище недоступно в этом режиме.")); return; }
+  if (rows === null){ app.append(h("p", "sub", journalTimeout ? "Данные пока недоступны. Попробуй позже." : "Загрузка…")); return; }
+  if (!rows.length){ app.append(h("p", "sub", "Пока никто не прошёл. Результаты появятся здесь сами.")); return; }
+  var list = rows.slice().sort(function(a, b){ return String(a.name).localeCompare(String(b.name), "ru"); });
+  var avg = list.reduce(function(s, r){ return s + (r.best || 0); }, 0) / list.length;
+  app.append(h("p", "sub", "Прошли: " + list.length + " · средний балл: " + avg.toFixed(1) + " из " + TOTAL));
+  var wrap = h("div", "sr"), tb = h("table"), hd = h("tr");
+  ["ФИО", "Балл", "Блоки", "Попыток", "Выходы", "Время"].forEach(function(x){ hd.append(h("th", "", x)); }); tb.append(hd);
+  list.forEach(function(r){
+    var tr = h("tr"); tr.append(h("td", "", String(r.name)), h("td", "sc", r.best + " / " + TOTAL), h("td", "", (r.blocks || []).join(" · ")), h("td", "", String(r.attempts || 1)), h("td", r.leaves > 2 ? "sc" : "", String(r.leaves || 0)), h("td", "", Math.floor((r.secs || 0) / 60) + " мин")); tb.append(tr);
+  });
+  wrap.append(tb); app.append(wrap);
+  var b = h("button", "btn ghost", "Скачать CSV"); var rr = h("div", "row"); rr.append(b); app.append(rr);
+  b.onclick = async function(){
+    var dl = null; try { dl = await claude.use("downloads"); } catch (e) {}
+    if (!dl){ b.textContent = "Скачивание недоступно"; return; }
+    var q = function(s){ return '"' + String(s).replace(/"/g, '""') + '"'; };
+    var csv = "\uFEFF" + ["ФИО;Балл;Из;Блок1;Блок2;Блок3;Блок4;Блок5;Попыток;Выходы;Секунд"].concat(list.map(function(r){ var bl = r.blocks || []; return [q(r.name), r.best, TOTAL, bl[0], bl[1], bl[2], bl[3], bl[4], r.attempts || 1, r.leaves || 0, r.secs || 0].join(";"); })).join("\r\n");
+    try { await dl.save({filename: "future-continuous-results.csv", data: csv}); } catch (e) {}
+  };
+}
+
+var lastLeave = 0;
+function leave(){ if (S.screen !== "q" || S.mode !== "main") return; var n = Date.now(); if (n - lastLeave < 1500) return; lastLeave = n; S.leaves = (S.leaves || 0) + 1; S.flag = true; }
+function back(){ if (!S.flag) return; S.flag = false; var t = h("div", "toast", "Выход со страницы зафиксирован (" + S.leaves + "). Преподаватель это увидит."); document.body.append(t); setTimeout(function(){ t.remove(); }, 4000); }
+document.addEventListener("visibilitychange", function(){ if (document.hidden) leave(); else back(); });
+window.addEventListener("blur", leave); window.addEventListener("focus", back);
+document.addEventListener("copy", function(e){ if (S.screen === "q" && e.target.tagName !== "INPUT") e.preventDefault(); });
+document.addEventListener("contextmenu", function(e){ if (S.screen === "q") e.preventDefault(); });
+render();
+(async function(){
+  try {
+    if (window.claude && window.claude.use){
+      db = await window.claude.use("db");
+      var user = await window.claude.use("user");
+      if (user){ uid = await user.id(); teacher = await user.canEdit(); }
+    }
+  } catch (e) {}
+  if (S.screen === "start" || S.screen === "journal") render(); else renderNav();
+})();
+</script>
+</body>
+</html>
