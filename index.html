@@ -70,6 +70,10 @@ button,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .q,.opt,.v,.hook,.meta,.fb{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .tm{height:3px;background:var(--line);border-radius:3px;margin:-20px 0 22px;overflow:hidden}.tm i{display:block;height:100%;background:var(--no);width:100%;transition:width 1s linear}
 .toast{position:fixed;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 12px);max-width:528px;margin:0 auto;background:var(--no);color:var(--bg);padding:12px 14px;border-radius:12px;font-size:14px;z-index:20}
+.ac{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px 18px;margin-top:18px}
+.ac .n{font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.ac .tx{font-size:14px;color:var(--mut)}.ac .tx b{display:block;font-size:15px;color:var(--fg);margin-bottom:2px}
+.ac.ok .n{color:var(--ok)}.ac.warn{border-color:var(--no);background:var(--nob)}.ac.warn .n{color:var(--no)}
 @media(max-width:480px){.w{padding:16px 16px 56px}h1{font-size:30px}.q{font-size:21px}.score{font-size:64px}.row .btn{flex:1 1 auto}.opt{padding:15px 16px}}
 </style>
 </head>
@@ -285,7 +289,9 @@ function viewResult(){
   var bl = h("div", "bl");
   BLOCKS.forEach(function(b, i){ bl.append(h("span", "", b.t), h("span", "", st.blocks[i] + " / 4")); var t = h("div", "t"), f = h("i"); f.style.width = (st.blocks[i] / 4 * 100) + "%"; t.append(f); bl.append(t); });
   app.append(bl);
-  if (S.leaves) app.append(h("div", "note", "Выходов со страницы: " + S.leaves + " — преподаватель видит это в журнале."));
+  var lv = S.leaves || 0, ac = h("div", "ac " + (lv ? "warn" : "ok")), act = h("div", "tx");
+  act.append(h("b", "", lv ? "Выходов со страницы во время теста" : "Выходов со страницы нет"), h("span", "", lv ? "Преподаватель видит это в журнале." : "Тест пройден без переключений на другие вкладки и окна."));
+  ac.append(h("div", "n", String(lv)), act); app.append(ac);
   var miss = S.res.filter(function(r){ return !r.ok; });
   if (miss.length){
     var c = h("div", "card"); c.append(h("h3", "", "Над чем поработать"));
